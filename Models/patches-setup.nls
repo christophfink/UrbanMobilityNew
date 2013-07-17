@@ -4,7 +4,19 @@
 
 
 to import-patches
-  
+ 
+ ;; reset to default values beforehand (added 20130717-1124 chr)
+ ask patches [
+ 	set nb-workers 0
+	set nb-students 0
+	set nb-inactives 0
+	set nb-cars 0
+	set offices false
+	set university false
+	set leisure false
+ ]
+
+
   import-pcolors "landuses/workers.png"
   ask patches with [pcolor != 0] [set nb-workers min list 20 round (1 / pcolor  * workers) set pcolor 0]
   
