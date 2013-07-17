@@ -5,7 +5,7 @@
 
 
 
-to setup-agents
+to setup-agents-structure
   
   output-print "Setting up agents..."
   let t timer
@@ -148,6 +148,17 @@ to setup-agents
     output-print word word "Done in " ((timer - t) / 1000) "ms"  
   
 end
+
+
+to setup-agents-vars
+  ask individuals [
+    set car-taken? false
+    set hidden? true
+    
+  ]
+end
+
+
 
 
 ; procedure which attribuates cars 

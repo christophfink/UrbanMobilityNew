@@ -11,9 +11,9 @@ to setup-model
   load-networks
   
   import-patches
-  setup-agents
+  if chge-agents? [setup-agents-structure]
+  setup-agents-vars
   ;setup-cars
-  
   
   correct-bugs
   

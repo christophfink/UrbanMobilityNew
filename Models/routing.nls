@@ -24,6 +24,12 @@ to move-agent
   ][
     ;;FATAL BUG : IF TRAVEL_TIME > interval to next-start, agent will miss next travel.
     if ticks = next-travel-start [
+      ;;need first check if projected path is empty
+      ;;should not be necessary after setup procedures killing individuals with empty pathes
+      ;;still, needed.
+      ;;TODO Track the bug if time
+      ;;do that after setting prefered path
+      
       ;set travel type and so one : decision tree
       take-decision 
       
@@ -38,39 +44,42 @@ to move-agent
       ifelse next-travel-type = "WALK" or next-travel-type = "CAR" [
         set current-path first first prefered-paths
       ][
-        set current-path first paths-transportation
+        set current-path first transportation-paths
       ]
       ;;beware, rotation in lists is always done in both!
-      set prefered-paths rotate prefered-paths
-      set paths-transportation rotate paths-transportation
+      if current-path != [] [
       
-      
-      set current-edge first current-path
-      ask current-edge [set people-in-edge lput myself people-in-edge]
-      let origin nobody
-      let snd nobody ifelse length current-path = 1 [set origin [both-ends] of current-edge with-min [distance myself]]
-      [set snd first but-first current-path set origin one-of ([both-ends] of current-edge ) with [not member? self [both-ends] of snd]]
-      
-      set current-path but-first current-path
-      
-      setxy [xcor] of origin [ycor] of origin
-
-      let h 0 ask current-edge [ask origin [set h towards other-end ]] set heading h
-      
-      set is-travelling? true set hidden? false
-      set times-rerouted 0
-      ;;since the destination is fixed
-      set space-schedule rotate space-schedule
-      ;and the time has been reached
-      set next-travel-start first time-schedule
-      set time-schedule rotate time-schedule
-      
-      if debug? [
-        output-print word "Starting new travel by " next-travel-type
-        foreach current-path [ask ? [set color green]] 
+        set prefered-paths rotate prefered-paths
+        set transportation-paths rotate transportation-paths
+        
+        
+        set current-edge first current-path
+        ask current-edge [set people-in-edge lput myself people-in-edge]
+        let origin nobody
+        let snd nobody ifelse length current-path = 1 [set origin one-of ([both-ends] of current-edge) with-min [distance myself]]
+        [set snd first but-first current-path set origin one-of ([both-ends] of current-edge ) with [not member? self [both-ends] of snd]]
+        
+        set current-path but-first current-path
+        
+        setxy [xcor] of origin [ycor] of origin
+  
+        let h 0 ask current-edge [ask origin [set h towards other-end ]] set heading h
+        
+        set is-travelling? true set hidden? false
+        set times-rerouted 0
+        ;;since the destination is fixed
+        set space-schedule rotate space-schedule
+        ;and the time has been reached
+        set next-travel-start first time-schedule
+        set time-schedule rotate time-schedule
+        
+        if debug? [
+          output-print word "Starting new travel by " next-travel-type
+          foreach current-path [ask ? [set color green]] 
+        ]
+        
+        
       ]
-      
-      
     ]
   ]
   
@@ -160,10 +169,15 @@ to reroute
       ;;reroute procedure : find the closest vertex on the two others prefered routes (stored in alternative routes)
       set times-rerouted times-rerouted + 1
       snapshot
+<<<<<<< HEAD
       show [distance n] of [end2] of self
       
       let v1 first sort-on [[distance n] of [end2] of self] first prefered-paths
       let v2 first sort-on [[distance n] of [end2] of self] first but-first prefered-paths
+=======
+      let v1 first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] first prefered-paths
+      let v2 first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] first but-first prefered-paths
+>>>>>>> juste
       let begin [] let fin []
       ifelse v1 < v2 [
         ask n [set begin nw:weighted-path-to v1 "length-of-edge"] ask v1 [set fin nw:weighted-path-to destination "length-of-edge"]

@@ -1,8 +1,10 @@
 
 to test-go-for-one-day
+  if movie?[
   movie-start word word "../Results/movies/singlemove" date-and-time ".mov"
   movie-set-frame-rate 20
   movie-grab-interface
+  ]
   
   reset-ticks
   ask individuals [set hidden? true]
@@ -28,6 +30,7 @@ to test-go-for-one-day
     
     tick
   ]
-  movie-close
+  if movie? [
+  movie-close]
   
 end
