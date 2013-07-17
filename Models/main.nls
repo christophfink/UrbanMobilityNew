@@ -2,7 +2,7 @@
 
 to setup-model
   
-  __clear-all-and-reset-ticks
+  ca
   resize-world 0 50 0 50
   set-patch-size 12
   
@@ -26,6 +26,7 @@ end
 
 to go-for-one-day
   reset-ticks
+  clear-all-plots 
   ask individuals [set hidden? true]
   
   ;color-networks
@@ -57,7 +58,7 @@ end
 
 
 to draw-links
-  
+  ask roads [set color scale-color orange (- congestion-on-edge) (- 30) 5]
 end
 
 

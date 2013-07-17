@@ -77,18 +77,32 @@ end
 
 ;;REPORTERS ABOUT THE SHARE OF EACH KIND OF DUDE ;;;;----------------------------------------------------------------
 
-;;These three reporters called
+;;These three reporters called make a procedure in Theta (6*N_agents)
+;;We could make one in Theta(N_Agents) but don't really care anyway
 
 to-report percentage-by-car
-  report travelling-by-car / travelling * 100
+  let t count individuals with [is-travelling?]
+  ifelse t != 0 [
+  report  (count individuals with [is-travelling? and next-travel-type = "CAR"]) / t  * 100
+  ][report 0]
 end
 
 to-report percentage-by-transportation
-  report travelling-by-transportation / travelling * 100
+  let t count individuals with [is-travelling?]
+  ifelse t != 0 [
+  report  (count individuals with [is-travelling? and next-travel-type = "TRANSPORTATION"]) / t  * 100
+  ][report 0]
 end
 
 to-report percentage-by-foot
-  report travelling-by-foot / travelling * 100
+  let t count individuals with [is-travelling?]
+  ifelse t != 0 [
+  report  (count individuals with [is-travelling? and next-travel-type = "WALK"]) / t  * 100
+  ][report 0]
+end
+
+to-report travelling
+  report count individuals with [is-travelling?]
 end
 
 
