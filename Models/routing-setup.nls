@@ -72,8 +72,8 @@ to setup-prefered-paths
   
   let origin one-of vertices with-min [distance myself] let destination nobody
   foreach space-schedule [
-    set destination one-of vertices with-min [distance patch first ? first but-first ?]
-    set prefered-paths lput three-best-paths origin destination prefered-paths
+    set destination one-of vertices with-min [distance patch (first ?) (first but-first ?)]
+    set prefered-paths lput (three-best-paths origin destination) prefered-paths
     set origin destination
   ]
   

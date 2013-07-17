@@ -181,7 +181,7 @@ to reroute
       let v2 one-of (([both-ends] of (first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] (first first but-first prefered-paths))) with-min [distance myself])
       let d1 0 let d2 0
       ask v1 [set d1 distance n] ask v2 [set v2 distance n]
-      output-print word v1 v2
+      ;DEBUG output-print word v1 v2
 
       if is-agent? v1 or is-agent? v2 [
 
@@ -189,6 +189,9 @@ to reroute
         ifelse d1 < d2 or not is-agent? v2 [
           ;output-print word word "Calculating path " v1 n
           ;output-print word word "Calculating path " v1 n
+          
+          ;;FIX SND SHORTEST PATH
+          
           ask n [set begin nw:weighted-path-to v1 "length-of-edge"] ask v1 [set fin nw:weighted-path-to destination "length-of-edge"]
         ][
           ask n [set begin nw:weighted-path-to v2 "length-of-edge"] ask v2 [set fin nw:weighted-path-to destination "length-of-edge"]

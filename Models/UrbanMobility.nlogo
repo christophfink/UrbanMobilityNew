@@ -54,7 +54,7 @@ globals[
   
   
   ;;movement parameters
-  begin-congestion-treshold
+  ;begin-congestion-treshold
   max-congestion-treshold
   min-congestion-speed
   
@@ -66,7 +66,6 @@ globals[
   ;;vars for output calculation
   km-congested ;; to init at 0
   ;congestion-threshold ;; to decide when a road is considered as congested : used in the outputs -> length-of-congestion !!!!!!!! We should use a slider ?
-  travelling ;; number of people travelling
   travelling-by-car ;; number of people travelling by car
   travelling-by-foot ;; number of people travelling by foot
   travelling-by-transportation  ;; number of people travelling by public transportation
@@ -277,8 +276,8 @@ GRAPHICS-WINDOW
 50
 0
 50
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -291,8 +290,8 @@ SLIDER
 workers
 workers
 0
-100
-1.9
+10
+0.6
 0.1
 1
 NIL
@@ -307,7 +306,7 @@ students
 students
 0
 100
-0.9
+0.4
 0.1
 1
 NIL
@@ -322,7 +321,7 @@ inactives
 inactives
 0
 100
-0.5
+0.1
 0.1
 1
 NIL
@@ -337,7 +336,7 @@ car-percentage
 car-percentage
 0
 100
-75
+73
 1
 1
 NIL
@@ -481,10 +480,10 @@ total-reroutings
 11
 
 MONITOR
-1233
-12
-1290
-57
+851
+110
+908
+155
 time
 tick-time-interval * ticks
 17
@@ -500,6 +499,57 @@ add-additional-transit-service?
 add-additional-transit-service?
 "No" "Yes, a tram line, please!" "Yes, a bus line, please!"
 2
+
+PLOT
+862
+178
+1022
+298
+congestion
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
+
+PLOT
+862
+305
+1022
+425
+transportation part
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot percentage-by-transportation"
+
+SLIDER
+1037
+11
+1260
+44
+begin-congestion-treshold
+begin-congestion-treshold
+0
+100
+8
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
