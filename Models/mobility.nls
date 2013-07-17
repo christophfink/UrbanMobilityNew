@@ -140,6 +140,7 @@ to setup-agents
   ask individuals [
     set car-taken? false
     set hidden? true
+    set is-travelling? false  ;; initially they are not ;-)
     
   ]
     
