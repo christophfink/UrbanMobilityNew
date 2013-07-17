@@ -28,7 +28,7 @@ to go-for-one-day
   reset-ticks
   ask individuals [set hidden? true]
   
-  color-networks
+  ;color-networks
   
   
   
@@ -36,6 +36,9 @@ to go-for-one-day
     ;;move
     ask individuals [move-agent]
     ;;update reporters?
+    
+    draw-links
+    
     
     tick
   ]
@@ -50,6 +53,11 @@ end
 to color-networks
   ask roads [set color red]
   ask transits [set color blue]
+end
+
+
+to draw-links
+  
 end
 
 

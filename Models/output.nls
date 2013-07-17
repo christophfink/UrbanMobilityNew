@@ -1,4 +1,11 @@
 
+;;setup globals variables used in output
+to setup-output
+  
+end
+
+
+
 
 
 ;;REPORTERS ABOUT CONGESTION ON EDGES------------------------------------------------------------------
@@ -13,7 +20,7 @@ end
 
 ;;Get the average congestion of the network at one tick
 to-report avg-congestion-on-edge 
-  report mean [congestion-on-edge] of roads
+  report mean ([congestion-on-edge] of roads)
 end
 ;;; !!!!!!!! We should plot congestion at each tick ------------------------------------------------
 
@@ -69,6 +76,9 @@ end
 
 
 ;;REPORTERS ABOUT THE SHARE OF EACH KIND OF DUDE ;;;;----------------------------------------------------------------
+
+;;These three reporters called
+
 to-report percentage-by-car
   report travelling-by-car / travelling * 100
 end
@@ -80,6 +90,8 @@ end
 to-report percentage-by-foot
   report travelling-by-foot / travelling * 100
 end
+
+
 
 
 
@@ -171,13 +183,6 @@ to-report by-walk?
 ;  ]
 end
 
-;to-report is-travelling?
-;  ifelse is-travelling [
-;    report 1
-;  ][
-;    report 0
-;  ]
-;end
 
 ;to-report nb-of-individuals-travelling
 ;  let number-of-travelers 0

@@ -275,8 +275,8 @@ GRAPHICS-WINDOW
 50
 0
 50
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -289,8 +289,8 @@ SLIDER
 workers
 workers
 0
-100
-1.9
+10
+2.6
 0.1
 1
 NIL
@@ -305,7 +305,7 @@ students
 students
 0
 100
-0.9
+2.1
 0.1
 1
 NIL
@@ -320,7 +320,7 @@ inactives
 inactives
 0
 100
-0.5
+1.1
 0.1
 1
 NIL
@@ -335,7 +335,7 @@ car-percentage
 car-percentage
 0
 100
-75
+73
 1
 1
 NIL
@@ -479,15 +479,33 @@ total-reroutings
 11
 
 MONITOR
-1233
-12
-1290
-57
+851
+110
+908
+155
 time
 tick-time-interval * ticks
 17
 1
 11
+
+PLOT
+862
+178
+1062
+328
+congestion
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
 
 @#$#@#$#@
 ## WHAT IS IT?

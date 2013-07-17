@@ -27,7 +27,7 @@ to setup-agents-structure
       set leisure-x x set leisure-y y  
             
       ;work schedule      
-      set work-start round ((random-float 5 + 6) / step) set work-end round ((random-float 5 + 16) / step)
+      set work-start round ((6 + random-float 5) / step) set work-end round ((16 + random-float 5) / step)
       
       ;lists (spce and time)
       set space-schedule (list list office-x office-y)

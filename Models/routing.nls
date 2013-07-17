@@ -189,6 +189,9 @@ to reroute
         ifelse d1 < d2 or not is-agent? v2 [
           ;output-print word word "Calculating path " v1 n
           ;output-print word word "Calculating path " v1 n
+          
+          ;;FIX SND SHORTEST PATH
+          
           ask n [set begin nw:weighted-path-to v1 "length-of-edge"] ask v1 [set fin nw:weighted-path-to destination "length-of-edge"]
         ][
           ask n [set begin nw:weighted-path-to v2 "length-of-edge"] ask v2 [set fin nw:weighted-path-to destination "length-of-edge"]
