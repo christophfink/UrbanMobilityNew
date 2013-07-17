@@ -459,7 +459,6 @@ NIL
 NIL
 1
 
-<<<<<<< HEAD
 SWITCH
 105
 516
@@ -492,7 +491,7 @@ tick-time-interval * ticks
 17
 1
 11
-=======
+
 CHOOSER
 1037
 297
