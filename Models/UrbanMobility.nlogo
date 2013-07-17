@@ -430,7 +430,7 @@ CHOOSER
 add-additional-transit-service?
 add-additional-transit-service?
 "No" "Yes, a tram line, please!" "Yes, a bus line, please!"
-1
+2
 
 @#$#@#$#@
 ## WHAT IS IT?

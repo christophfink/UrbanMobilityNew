@@ -2,8 +2,8 @@ to load-networks
   clear-canvas white
   load-public-transport-network
   load-road-network
-  if ( add-additional-transit-service? = "Yes, a tram line, please!" ) [ add-tram-line ]
-  if ( add-additional-transit-service? = "Yes, a bus line, please!" ) [ add-bus-line ]
+  if ( add-additional-transit-service? = "Yes, a tram line, please!" ) [ if debug? [ show "adding tram line" ] add-tram-line ]
+  if ( add-additional-transit-service? = "Yes, a bus line, please!" ) [ if debug? [ show "adding bus line" ] add-bus-line ]
   setup-owned
 end
 
