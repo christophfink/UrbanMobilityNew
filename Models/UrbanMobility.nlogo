@@ -72,6 +72,8 @@ globals[
   
   nb-clusters ;; Number of clusters we need
   km-congested-per-cluster ;; Array of length nb-clusters which contains the nb of congested kilometers per cluster
+  
+  congestion-roads
 
   
   
@@ -248,7 +250,6 @@ patches-own[
   offices?
   leisure?
 ]
-
 
 
 @#$#@#$#@
