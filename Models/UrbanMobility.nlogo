@@ -58,6 +58,7 @@ globals[
   
   epsilon-prefered-paths
   
+  total-reroutings
   
   
   ;;vars for output calculation
@@ -195,10 +196,6 @@ links-own[
  ;;list of pointers to people currently travelling in edge
  people-in-edge
  
-]
-
-transits-own [
-  ligne
 ]
 
 
@@ -365,7 +362,7 @@ congestion-threshold
 congestion-threshold
 0
 1
-0.8
+0.5
 0.1
 1
 NIL
@@ -446,7 +443,7 @@ SWITCH
 549
 chge-agents?
 chge-agents?
-1
+0
 1
 -1000
 
@@ -796,7 +793,7 @@ Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 
 @#$#@#$#@
-NetLogo 5.0.4
+NetLogo 5.0.2
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@

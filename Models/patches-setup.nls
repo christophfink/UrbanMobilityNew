@@ -11,9 +11,9 @@ to import-patches
 	set nb-students 0
 	set nb-inactives 0
 	set nb-cars 0
-	set offices false
-	set university false
-	set leisure false
+	set offices? false
+	set university? false
+	set leisure? false
  ]
 
 

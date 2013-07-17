@@ -4,7 +4,7 @@
 ;;REPORTERS ABOUT CONGESTION ON EDGES------------------------------------------------------------------
 ;;Get the congestion of one road at one tick
 to-report congestion-on-edge
-  report length people-in-edge / capacity
+  report (length people-in-edge) / capacity
 end
 
 
@@ -12,12 +12,8 @@ end
 
 
 ;;Get the average congestion of the network at one tick
-to-report avg-congestion-on-edge
-  let congestion 0
-  ask roads [
-     set congestion congestion + congestion-on-edge
-  ]
-  report congestion / count roads
+to-report avg-congestion-on-edge 
+  report mean [congestion-on-edge] of roads
 end
 ;;; !!!!!!!! We should plot congestion at each tick ------------------------------------------------
 
