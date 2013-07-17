@@ -151,9 +151,9 @@ to new-abstract-gis-path
   set hidden? true  set vertices-list []
 end
 
-to new-path
-  set thickness 0.3 set color red
-end
+;to new-path
+;  set thickness 0.3 set color red
+;end
 
 
 

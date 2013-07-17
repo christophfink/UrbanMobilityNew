@@ -19,6 +19,8 @@ to setup-model
   
   setup-routing
   
+  setup-outputs
+
  
   
 end
@@ -27,10 +29,10 @@ end
 to go-for-one-day
   reset-ticks
   clear-all-plots 
-  ask individuals [set hidden? true]
   
   ;color-networks
   
+  setup-vars-for-go
   
   
   repeat round (24 / tick-time-interval)[
@@ -40,10 +42,28 @@ to go-for-one-day
     
     draw-links
     
+    output-each-tick-agregation
+    
+    update-vars
+    
+    if (ticks * tick-time-interval) mod 1 = 0 [set out-calibration lput avg-congestion-on-edge out-calibration]
     
     tick
   ]
   
+end
+
+to setup-vars-for-go
+  set total-reroutings 0
+  set total-travel-number 0
+  
+  ask individuals [
+    set hidden? true
+    set individual-tolerance-for-congestion tolerance-for-congestion
+  ]
+  ask roads [set people-in-edge []]
+  
+  set out-calibration []
 end
 
 
@@ -58,7 +78,16 @@ end
 
 
 to draw-links
-  ask roads [set color scale-color orange (- congestion-on-edge) (- 30) 5]
+  ask roads [set color scale-color orange (- congestion-on-edge) (- 25) 4]
+end
+
+
+
+to update-vars
+  set max-transportation-part max list max-transportation-part percentage-by-transportation
+  set max-mean-congestion max list max-mean-congestion (100 * avg-congestion-on-edge)
+  set mean-transportation-part mean-transportation-part + percentage-by-transportation
+  set mean-mean-congestion mean-mean-congestion + (100 * avg-congestion-on-edge)
 end
 
 

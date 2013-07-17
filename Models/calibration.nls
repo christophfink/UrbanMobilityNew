@@ -1,0 +1,40 @@
+to calibrate
+  
+  let filename word word "../Results/calibration/cal_" timer ".sci"
+  print-in-file filename "congtres=[];ratio=[];meancong=[];"
+  
+  set begin-congestion-treshold 40
+  
+  let values [[0.2 2][0.5 1.5][1 1][1.5 0.5][2 0.2]]
+  let inter values
+  
+  let i 1
+    
+    repeat 10 [
+     
+     repeat 5 [
+       
+       set workers first first inter set students first but-first first inter
+       set inter but-first inter
+       
+       setup-vars-for-go
+       
+       go-for-one-day
+       
+       let j 1
+       print-in-file filename word word word word "congtres(" i ")=" begin-congestion-treshold ";"
+       print-in-file filename word word word word "ratio(" i ")=" (workers / students) ";"
+       foreach out [print-in-file filename word word word word word word "meancong(" i "," j ")=" ? ";" set j j + 1]
+       
+       set i i + 1
+       
+
+     ]
+     
+     set begin-congestion-treshold begin-congestion-treshold + 10
+     set inter values 
+    ]
+  
+  
+end
+

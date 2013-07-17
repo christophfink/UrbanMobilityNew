@@ -33,10 +33,14 @@ __includes[
   "output.nls"
   "codePatches.nls"
   "tests.nls"
+  "exploration.nls"
   
   ;;utilities
   "utils/NetworkUtilities.nls"
   "utils/ListUtilities.nls"
+  "utils/FileUtilities.nls"
+  "utils/StringUtilities.nls"
+  
 ]
 
 globals[
@@ -48,8 +52,6 @@ globals[
   ;;network import functions
   pt-network
   road-network
-  additional-bus-line
-  additional-tram-line
   
   
   
@@ -61,7 +63,7 @@ globals[
   epsilon-prefered-paths
   
   total-reroutings
-  
+  total-travel-number
   
   ;;vars for output calculation
   km-congested ;; to init at 0
@@ -70,10 +72,11 @@ globals[
   travelling-by-foot ;; number of people travelling by foot
   travelling-by-transportation  ;; number of people travelling by public transportation
   
-  nb-clusters ;; Number of clusters we need
-  km-congested-per-cluster ;; Array of length nb-clusters which contains the nb of congested kilometers per cluster
-
-  
+  ;;reporters
+  max-mean-congestion
+  max-transportation-part
+  mean-mean-congestion
+  mean-transportation-part
   
   
   
@@ -83,8 +86,17 @@ globals[
   cluster-treshold
   remaining-links
   paths-setup
+  out-calibration
   
   scale-factor
+  
+  
+  
+  nb-clusters ;; Number of clusters we need
+  km-congested-per-cluster ;; Array of length nb-clusters which contains the nb of congested kilometers per cluster -- NOW USELESS !!!
+  congestion-rate-per-cluster  ;; Array of length nb-clusters which contains the rate congestion aggregated through time per cluster
+  
+  
   
 ]
 
@@ -161,6 +173,7 @@ individuals-own[
  remaining-time-in-tick
  
  individual-tolerance-for-congestion
+
  
  ;;list of the path that has to be executed
  current-path
@@ -177,8 +190,8 @@ individuals-own[
  mean-travel-time
  
  
- ;;output
- cluster-vertex
+ 
+ 
  
 ]
 
@@ -198,6 +211,14 @@ roads-own[
  
  ;;list of pointers to people currently travelling in edge
  people-in-edge
+ 
+ 
+ 
+ ;;output
+ cluster-vertex
+ betweeness-roads
+ congestion-roads
+ 
  
 ]
 
@@ -228,6 +249,9 @@ transits-own[
 
 vertices-own[
   is-station?
+  
+    betweeness-vertices
+
 ]
 
 
@@ -250,11 +274,6 @@ patches-own[
 ]
 
 
-
-
-
-
-=======
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -292,7 +311,7 @@ workers
 workers
 0
 10
-0.6
+2
 0.1
 1
 NIL
@@ -307,7 +326,7 @@ students
 students
 0
 100
-0.4
+0.2
 0.1
 1
 NIL
@@ -322,7 +341,7 @@ inactives
 inactives
 0
 100
-0.1
+0.5
 0.1
 1
 NIL
@@ -337,7 +356,7 @@ car-percentage
 car-percentage
 0
 100
-73
+12
 1
 1
 NIL
@@ -458,7 +477,6 @@ NIL
 NIL
 1
 
-<<<<<<< HEAD
 SWITCH
 105
 516
@@ -471,10 +489,10 @@ chge-agents?
 -1000
 
 MONITOR
-1307
-60
-1360
-105
+1046
+110
+1099
+155
 reroutes
 total-reroutings
 17
@@ -491,52 +509,6 @@ tick-time-interval * ticks
 17
 1
 11
-=======
-CHOOSER
-1037
-297
-1256
-342
-add-additional-transit-service?
-add-additional-transit-service?
-"No" "Yes, a tram line, please!" "Yes, a bus line, please!"
-2
-
-PLOT
-862
-178
-1022
-298
-congestion
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
-
-PLOT
-862
-305
-1022
-425
-transportation part
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 0 -16777216 true "" "plot percentage-by-transportation"
 
 SLIDER
 1037
@@ -547,11 +519,81 @@ begin-congestion-treshold
 begin-congestion-treshold
 0
 100
-8
+37
 1
 1
 NIL
 HORIZONTAL
+
+MONITOR
+66
+135
+128
+180
+vertices
+count vertices
+17
+1
+11
+
+SLIDER
+1047
+51
+1259
+84
+tolerance-for-congestion
+tolerance-for-congestion
+0
+100
+48
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+974
+110
+1041
+155
+total travels
+total-travel-number
+17
+1
+11
+
+MONITOR
+1309
+61
+1376
+106
+students
+count individuals with [activity = \"student\"]
+17
+1
+11
+
+MONITOR
+1310
+113
+1373
+158
+workers
+count individuals with [activity = \"worker\"]
+17
+1
+11
+
+MONITOR
+130
+136
+204
+181
+nb-clusters
+nb-clusters
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

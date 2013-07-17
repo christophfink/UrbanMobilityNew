@@ -1,0 +1,107 @@
+;to explore
+;  ;;format : [name,min,max,step]
+;  
+;  let filename word word "../Results/exploration/expl_" timer ".sci"
+;  
+;  ;;set list of 
+;  
+;  print-in-file filename "bref=[];bnorm=[];income-mean=[];rents=[];"
+; 
+;  let i 1
+;  
+;  repeat 10 [
+;    
+;    repeat 10 [
+;     
+;     repeat 10 [
+;      
+;       set-random-initial-configuration
+;       
+;       let out (list mean [rent / surface] of flats)
+;       let j 1
+;       
+;       while [not stop?][go if (ticks * time-interval) mod 1 = 0 [set out lput mean [rent / surface] of flats out]]  
+;       print-in-file filename word word word word "bref(" i ")=" bref ";"
+;       print-in-file filename word word word word "bnorm(" i ")=" bnorm ";"
+;       print-in-file filename word word word word "incomemean(" i ")=" income-mean ";"
+;       foreach out [print-in-file filename word word word word word word "rents(" i "," j ")=" ? ";" set j j + 1]
+;      
+;       set income-mean income-mean + 1000 
+;       set i i + 1
+;
+;     ]
+;     
+;     set bnorm bnorm + 2000
+;     set income-mean 10000 
+;    ]
+;    
+;    set bref bref + 1000
+;    set bnorm 10000
+;    set income-mean 10000
+;  ]
+;  
+;  
+;end
+
+
+to graph
+  
+  let filename word word "../Results/exploration/graph1d_" timer ".sci"
+  
+  ;;set list of 
+  
+  print-in-file filename "reroutes=[];"
+  set tolerance-for-congestion 0
+  let i 1
+  
+  repeat 20 [
+    
+       setup-vars-for-go
+       
+       go-for-one-day
+     
+       print-in-file filename word word word word "reroutes(" i ")=" (total-reroutings / total-travel-number) ";"
+      
+       set tolerance-for-congestion tolerance-for-congestion + 3
+       set i i + 1
+
+     ]
+  
+end
+
+
+
+to graph-with-setup
+  
+  let filename word word "../Results/exploration/graph1dIndivs_" timer ".sci"
+  
+  print-in-file filename "var=[];"
+  print-in-file filename "maxcong=[];"
+  print-in-file filename "maxtrans=[];"
+  set tolerance-for-congestion 0
+  let i 1
+  
+  let values [[0.2 2][0.5 1.5][1 1][1.5 0.5][2 0.2]]
+  
+  foreach values [
+       
+       set workers first ? set students first but-first ?
+       
+       setup-model
+       
+       go-for-one-day
+     
+       print-in-file filename word word word word "var(" i ")=" (workers / students) ";"
+       print-in-file filename word word word word "maxcong(" i ")=" (max-mean-congestion) ";"
+       print-in-file filename word word word word "maxtrans(" i ")=" (max-transportation-part) ";"
+       print-in-file filename word word word word "meancong(" i ")=" (mean-mean-congestion / round (24 / tick-time-interval)) ";"
+       print-in-file filename word word word word "meantrans(" i ")=" (mean-transportation-part / round (24 / tick-time-interval)) ";"
+      
+       set i i + 1
+
+     ]
+  
+  
+end
+
+
