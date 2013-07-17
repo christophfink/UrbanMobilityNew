@@ -1,10 +1,23 @@
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Core file for the model, what includes interface, infos, but with less code as possible.
 ;; NetLogo "headers" have to be all here.
 ;;;;;;;;;;;;;;;;;;;;;
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;
+;;; TODOs
+;;; - bug in reroute process
+;;; - time trackers in rerouting process
+;;; - correct reporters
+;;; - plots ?
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+
 extensions[nw gis array]
+
 
 __includes[
   ;;source files
@@ -208,7 +221,6 @@ patches-own[
   offices?
   leisure?
 ]
-
 
 
 
