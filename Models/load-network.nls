@@ -80,7 +80,7 @@ to create-edges-and-vertices [vectordataset l_color l_width v_color v_size v_sha
                set length-of-edge gis:property-value feature "length"
                set ligne gis:property-value feature "line"
                set thickness l_width
-              ;; set avg-speed 30 + (random 2 * 20 ) * 1000 ;; hm …
+               set avg-speed 30 + (random 2 * 20 ) * 1000 ;; sorry, my fault
               
              ]
           ] [
