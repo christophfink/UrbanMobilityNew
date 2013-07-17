@@ -33,6 +33,8 @@ globals[
   ;;network import functions
   pt-network
   road-network
+  additional-bus-line
+  additional-tram-line
   
   
   
@@ -212,9 +214,6 @@ patches-own[
   offices?
   leisure?
 ]
-
-
-
 
 
 
@@ -421,6 +420,16 @@ NIL
 NIL
 NIL
 NIL
+1
+
+CHOOSER
+1037
+297
+1256
+342
+add-additional-transit-service?
+add-additional-transit-service?
+"No" "Yes, a tram line, please!" "Yes, a bus line, please!"
 1
 
 @#$#@#$#@
