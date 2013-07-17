@@ -20,7 +20,7 @@ to setup-routing
   let t timer
   
   ask individuals [
-    setup-prefered-paths
+    if chge-agents? [setup-prefered-paths]
     
     set times-rerouted 0
     set individual-tolerance-for-congestion 1
@@ -47,7 +47,7 @@ to setup-routing
   ask individuals [
     let die? false
     foreach prefered-paths [foreach ? [if length ? < 2[set die? true]]];det sie?
-    foreach paths-transportation [
+    foreach transportation-paths [
       if member? [] ? [set die? true] 
     ]
     if die? [die]
@@ -68,7 +68,7 @@ to setup-prefered-paths
   ;;calculation of shortest paths in public transportation are also done here for a huge gain in time
   
   set prefered-paths []
-  set paths-transportation []
+  set transportation-paths []
   
   let origin one-of vertices with-min [distance myself] let destination nobody
   foreach space-schedule [
@@ -84,7 +84,7 @@ to setup-prefered-paths
     let shortest []
     set destination one-of vertices with [is-station?] with-min [distance patch first ? first but-first ?]
     ask origin [set shortest nw:weighted-path-to destination "weight"]
-    set paths-transportation lput shortest paths-transportation
+    set transportation-paths lput shortest transportation-paths
     set origin destination
   ]
   

@@ -1,6 +1,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; Core file for the model, what includes interface, infos, but with less code as possible.
+;;
 ;; NetLogo "headers" have to be all here.
 ;;;;;;;;;;;;;;;;;;;;;
 
@@ -143,7 +145,7 @@ individuals-own[
  ;;variables for path calculation and traveling
  ;;;;;;;;;;;;;
  prefered-paths
- paths-transportation
+ transportation-paths
 
  next-travel-start
  next-travel-type
@@ -432,6 +434,17 @@ NIL
 NIL
 NIL
 1
+
+SWITCH
+105
+516
+201
+549
+chge-agents?
+chge-agents?
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
