@@ -160,6 +160,8 @@ to reroute
       ;;reroute procedure : find the closest vertex on the two others prefered routes (stored in alternative routes)
       set times-rerouted times-rerouted + 1
       snapshot
+      show [[distance n] of [end2] of self]
+      
       let v1 first sort-on [[distance n] of [end2] of self] first prefered-paths
       let v2 first sort-on [[distance n] of [end2] of self] first but-first prefered-paths
       let begin [] let fin []
