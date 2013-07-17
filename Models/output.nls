@@ -138,6 +138,12 @@ to congestion-per-cluster-i [i]
 end
 
 
+to-report report-congestion-per-cluster [i]
+  if tick > 10 [
+    report array:item km-congested-per-cluster i
+  ]
+end
+
 ;;Calculate the number of congested kilometers per cluster
 to congestion-per-cluster 
   let i 0

@@ -251,8 +251,6 @@ patches-own[
 
 
 
-
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -290,7 +288,7 @@ workers
 workers
 0
 10
-1.8
+0.5
 0.1
 1
 NIL
@@ -305,7 +303,7 @@ students
 students
 0
 100
-1.2
+0.3
 0.1
 1
 NIL
@@ -320,7 +318,7 @@ inactives
 inactives
 0
 100
-0.5
+0.2
 0.1
 1
 NIL
@@ -329,7 +327,7 @@ HORIZONTAL
 SLIDER
 110
 98
-282
+203
 131
 car-percentage
 car-percentage
@@ -510,12 +508,18 @@ NIL
 0.0
 240.0
 0.0
-100.0
-false
-false
+10.0
+true
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
+"congestion rate" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
+"modal share of publ. tr." 1.0 0 -3844592 true "" "plot percentage-by-transportation"
+"congestion cluster 1" 1.0 0 -1184463 true "" "plot report-congestion-per-cluster 1"
+"congestion cluster 2" 1.0 0 -8732573 true "" "plot report-congestion-per-cluster 2"
+"congestion cluster 3" 1.0 0 -11033397 true "" "plot report-congestion-per-cluster 3"
+"congestion cluster 4" 1.0 0 -7500403 true "" "plot report-congestion-per-cluster 4"
+"congestion cluster 5" 1.0 0 -4757638 true "" "plot report-congestion-per-cluster 5"
 
 PLOT
 852
@@ -530,10 +534,12 @@ NIL
 0.0
 100.0
 false
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -13791810 true "" "plot percentage-by-transportation"
+"on foot" 1.0 0 -13791810 true "" "plot percentage-by-car + percentage-by-transportation + percentage-by-foot"
+"by public transport" 1.0 0 -7500403 true "" "plot percentage-by-car + percentage-by-transportation"
+"by car" 1.0 0 -2674135 true "" "plot percentage-by-car"
 
 SLIDER
 1037
