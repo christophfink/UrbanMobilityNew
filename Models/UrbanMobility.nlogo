@@ -15,7 +15,7 @@
 ;;; - correct reporters
 ;;; - plots ?
 ;;;
-;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;   
 
 
 extensions[nw gis array]
@@ -253,7 +253,6 @@ patches-own[
 
 
 
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -291,7 +290,7 @@ workers
 workers
 0
 10
-0.6
+1.8
 0.1
 1
 NIL
@@ -306,7 +305,7 @@ students
 students
 0
 100
-0.4
+1.2
 0.1
 1
 NIL
@@ -321,7 +320,7 @@ inactives
 inactives
 0
 100
-0.1
+0.5
 0.1
 1
 NIL
@@ -330,13 +329,13 @@ HORIZONTAL
 SLIDER
 110
 98
-202
+282
 131
 car-percentage
 car-percentage
 0
 100
-73
+45
 1
 1
 NIL
@@ -480,10 +479,10 @@ total-reroutings
 11
 
 MONITOR
-851
-110
-908
-155
+1245
+50
+1302
+95
 time
 tick-time-interval * ticks
 17
@@ -491,50 +490,50 @@ tick-time-interval * ticks
 11
 
 CHOOSER
-1037
-297
-1256
-342
+850
+601
+1069
+646
 add-additional-transit-service?
 add-additional-transit-service?
 "No" "Yes, a tram line, please!" "Yes, a bus line, please!"
-2
+0
 
 PLOT
-862
-178
-1022
-298
+853
+119
+1340
+343
 congestion
 NIL
 NIL
 0.0
-10.0
+240.0
 0.0
-10.0
-true
+100.0
+false
 false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
 
 PLOT
-862
-305
-1022
-425
+852
+352
+1350
+591
 transportation part
 NIL
 NIL
 0.0
-10.0
+240.0
 0.0
-10.0
-true
+100.0
+false
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot percentage-by-transportation"
+"default" 1.0 0 -13791810 true "" "plot percentage-by-transportation"
 
 SLIDER
 1037
@@ -545,7 +544,7 @@ begin-congestion-treshold
 begin-congestion-treshold
 0
 100
-8
+0.7
 1
 1
 NIL
