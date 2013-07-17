@@ -1,0 +1,57 @@
+
+
+to setup-model
+  
+  __clear-all-and-reset-ticks
+  resize-world 0 50 0 50
+  set-patch-size 12
+  
+  set step tick-time-interval
+  
+  load-networks
+  
+  import-patches
+  setup-agents
+  ;setup-cars
+  
+  
+  correct-bugs
+  
+  setup-routing
+  
+end
+
+
+to go-for-one-day
+  reset-ticks
+  ask individuals [set hidden? true]
+  let cobaye one-of individuals
+  
+  color-networks
+  
+  
+  
+  repeat round (24 / tick-time-interval)[
+    ;;move
+    ask individuals [move-agent]
+    ;;update reporters?
+    
+    tick
+  ]
+  
+end
+
+
+
+
+
+
+to color-networks
+  ask roads [set color red]
+  ask transits [set color blue]
+end
+
+
+
+
+

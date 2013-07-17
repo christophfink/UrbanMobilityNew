@@ -1,0 +1,33 @@
+
+to test-go-for-one-day
+  movie-start word word "../Results/movies/singlemove" date-and-time ".mov"
+  movie-set-frame-rate 20
+  movie-grab-interface
+  
+  reset-ticks
+  ask individuals [set hidden? true]
+  let cobaye one-of individuals
+  ask cobaye [
+    set hidden? false
+    
+    output-print "Agent geginning day"
+    output-print word "activities : " activities-schedule
+    output-print word "times : " time-schedule
+    
+  ]
+  
+  ask roads [set color red]
+  ask transits [set color blue]
+  
+  
+  
+  repeat round (24 / tick-time-interval)[
+    ;;move
+    ask cobaye [move-agent]
+    ;;update reporters?
+    
+    tick
+  ]
+  movie-close
+  
+end
