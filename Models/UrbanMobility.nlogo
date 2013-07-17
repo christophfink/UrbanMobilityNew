@@ -182,6 +182,10 @@ links-own[
  
 ]
 
+transits-own [
+  ligne
+]
+
 
 
 
