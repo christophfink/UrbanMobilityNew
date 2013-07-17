@@ -2,13 +2,29 @@ to load-networks
   clear-canvas white
   load-public-transport-network
   load-road-network
+  if ( add-additional-transit-service? = "Yes, a tram line, please!" ) [ if debug? [ show "adding tram line" ] add-tram-line ]
+  if ( add-additional-transit-service? = "Yes, a bus line, please!" ) [ if debug? [ show "adding bus line" ] add-bus-line ]
   setup-owned
+end
+
+to add-bus-line
+  set additional-bus-line load-from-shapefile "../Data/simple_network/ptA1.shp"
+  create-edges-and-vertices additional-bus-line blue 0.4 blue 0.4 "circle" true
+  if debug? [ show "busses loaded" ]
+end
+
+to add-tram-line
+  set additional-tram-line load-from-shapefile "../Data/simple_network/ptA2.shp"
+  ;zoom-to-dataset additional-tram-line
+  create-edges-and-vertices additional-tram-line blue 0.4 blue 0.4 "circle" true
+  if debug? [ show "trams loaded" ]
 end
 
 to setup-owned
    set scale-factor 200
     ask roads [
-       set capacity scale-factor * link-length * (1 + random 2) / 5
+       ;set capacity scale-factor * link-length * (1 + random 2) / 5
+       set capacity capacity * (1 + random 2) / 5
        set people-in-edge []
     ]
     ask transits [
