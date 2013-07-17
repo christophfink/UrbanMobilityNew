@@ -164,6 +164,8 @@ individuals-own[
  ;;list of the path that has to be executed
  current-path
  
+ 
+ 
  current-alternative-routes
 
  current-position ;couple of coordinates
@@ -179,7 +181,7 @@ individuals-own[
  
 ]
 
-links-own[
+roads-own[
    ;;average speed in edge
   avg-speed
   min-travel-time
@@ -198,6 +200,27 @@ links-own[
  
 ]
 
+transits-own[
+   ;;average speed in edge
+  avg-speed
+  min-travel-time
+  
+ ;;real length of road
+ length-of-edge
+  
+ ;;capacity of road : unit : Number of cars
+ capacity
+ 
+ ;;intermediary var for weighted paths
+ weight
+ 
+ ;;list of pointers to people currently travelling in edge
+ people-in-edge
+  
+  
+  
+  ligne 
+]
 
 
 
@@ -224,8 +247,6 @@ patches-own[
   offices?
   leisure?
 ]
-
-
 
 
 
@@ -269,7 +290,7 @@ workers
 workers
 0
 100
-2.1
+1.9
 0.1
 1
 NIL
@@ -284,7 +305,7 @@ students
 students
 0
 100
-0.5
+0.9
 0.1
 1
 NIL
@@ -299,7 +320,7 @@ inactives
 inactives
 0
 100
-0.2
+0.5
 0.1
 1
 NIL
@@ -361,7 +382,7 @@ congestion-threshold
 congestion-threshold
 0
 1
-0.5
+0.8
 0.1
 1
 NIL
@@ -445,6 +466,28 @@ chge-agents?
 0
 1
 -1000
+
+MONITOR
+1307
+60
+1360
+105
+reroutes
+total-reroutings
+17
+1
+11
+
+MONITOR
+1233
+12
+1290
+57
+time
+tick-time-interval * ticks
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

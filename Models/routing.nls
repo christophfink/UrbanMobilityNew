@@ -49,7 +49,9 @@ to move-agent
       ;;beware, rotation in lists is always done in both!
       if current-path != [] [
       
-        set prefered-paths rotate prefered-paths
+        ;;beware : don't do total rotation for prefered paths.
+        ;;Do it when travel is finished
+        set prefered-paths fput (rotate (first prefered-paths)) (but-first prefered-paths)
         set transportation-paths rotate transportation-paths
         
         
@@ -155,10 +157,13 @@ to reroute
   ifelse current-path = [][
     set is-travelling? false set hidden? true
     
+    ;;journey is finished, rotate prefered paths
+    set prefered-paths rotate prefered-paths
+    
     if debug? [output-print word "Finished travel in " travel-time]
   ][
     let hypothetical-next-edge first current-path
-    let destination last current-path
+    let destination one-of ([both-ends] of last current-path) ;;bord effect but no quick way to know? (or put in cache when calculating routes?);;ok not so important
     let n one-of (([both-ends] of current-edge) with-min [distance myself])
     setxy [xcor] of n [ycor] of n ;;strange but seems faster than move-to!
     
@@ -166,26 +171,35 @@ to reroute
     
     ;;check reroute condition
     if next-travel-type = "CAR" and times-rerouted < 3 and [congestion-on-edge] of hypothetical-next-edge >= individual-tolerance-for-congestion [
+      
+      
       ;;reroute procedure : find the closest vertex on the two others prefered routes (stored in alternative routes)
       set times-rerouted times-rerouted + 1
       snapshot
-<<<<<<< HEAD
-      show [distance n] of [end2] of self
-      
-      let v1 first sort-on [[distance n] of [end2] of self] first prefered-paths
-      let v2 first sort-on [[distance n] of [end2] of self] first but-first prefered-paths
-=======
-      let v1 first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] first prefered-paths
-      let v2 first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] first but-first prefered-paths
->>>>>>> juste
-      let begin [] let fin []
-      ifelse v1 < v2 [
-        ask n [set begin nw:weighted-path-to v1 "length-of-edge"] ask v1 [set fin nw:weighted-path-to destination "length-of-edge"]
-      ][
-        ask n [set begin nw:weighted-path-to v2 "length-of-edge"] ask v2 [set fin nw:weighted-path-to destination "length-of-edge"]
+
+      let v1 one-of (([both-ends] of (first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] (first first prefered-paths))) with-min [distance myself])
+      let v2 one-of (([both-ends] of (first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] (first first but-first prefered-paths))) with-min [distance myself])
+      let d1 0 let d2 0
+      ask v1 [set d1 distance n] ask v2 [set v2 distance n]
+      output-print word v1 v2
+
+      if is-agent? v1 or is-agent? v2 [
+
+        let begin [] let fin []
+        ifelse d1 < d2 or not is-agent? v2 [
+          ;output-print word word "Calculating path " v1 n
+          ;output-print word word "Calculating path " v1 n
+          ask n [set begin nw:weighted-path-to v1 "length-of-edge"] ask v1 [set fin nw:weighted-path-to destination "length-of-edge"]
+        ][
+          ask n [set begin nw:weighted-path-to v2 "length-of-edge"] ask v2 [set fin nw:weighted-path-to destination "length-of-edge"]
+        ]
+        if is-agent? v1 and is-agent? v2[
+          set current-path concat begin fin
+          set hypothetical-next-edge first current-path
+          
+          set total-reroutings total-reroutings + 1
+        ]
       ]
-      set current-path concat begin fin
-      set hypothetical-next-edge first current-path
     ]
     
     ;;always done : change edge.

@@ -27,7 +27,6 @@ end
 to go-for-one-day
   reset-ticks
   ask individuals [set hidden? true]
-  let cobaye one-of individuals
   
   color-networks
   
