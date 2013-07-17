@@ -39,4 +39,7 @@ to import-patches
   ask patches with [pcolor != 0] [set leisure? true  set pcolor 0]
   
   
+  ;; finally, clear the background again
+  clear-canvas white
+  
 end

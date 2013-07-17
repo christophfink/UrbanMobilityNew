@@ -232,7 +232,6 @@ patches-own[
 
 
 
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 210

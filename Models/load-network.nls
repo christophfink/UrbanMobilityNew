@@ -28,7 +28,7 @@ end
 to load-road-network
   set road-network load-from-shapefile "../Data/simple_network/rd.shp"
   ;zoom-to-dataset road-network
-  create-edges-and-vertices road-network red 0.2 red 0.2 "circle" false
+  create-edges-and-vertices road-network red 0.1 red 0.1 "circle" false
 end
 
 to-report load-from-shapefile [filename]
@@ -38,9 +38,9 @@ end
 to zoom-to-dataset [vectordataset]
   let margin 0.01   ;; in degrees
   let envelope gis:envelope-of vectordataset
-  show envelope
+  if debug? [show envelope]
   set envelope (list (item 0 envelope - margin)  (item 1 envelope + margin) (item 2 envelope - margin) (item 3 envelope + margin))
-  show envelope
+  if debug? [show envelope]
   gis:set-world-envelope-ds envelope ;gis:envelope-of vectordataset
 end
 
@@ -80,7 +80,7 @@ to create-edges-and-vertices [vectordataset l_color l_width v_color v_size v_sha
                set length-of-edge gis:property-value feature "length"
                set ligne gis:property-value feature "line"
                set thickness l_width
-              ;; set avg-speed 30 + (random 2 * 20 ) * 1000 ;; hm …
+               set avg-speed 30 + (random 2 * 20 ) * 1000 ;; sorry, my fault
               
              ]
           ] [
