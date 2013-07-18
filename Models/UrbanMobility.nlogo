@@ -55,7 +55,8 @@ globals[
   ;;network import functions
   pt-network
   road-network
-  
+  additional-bus-line
+  additional-tram-line
   
   
   ;;movement parameters
@@ -275,7 +276,6 @@ patches-own[
   offices?
   leisure?
 ]
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -667,11 +667,21 @@ agents-number
 agents-number
 0
 10000
-1000
+1020
 10
 1
 NIL
 HORIZONTAL
+
+CHOOSER
+840
+100
+1059
+145
+add-additional-transit-service?
+add-additional-transit-service?
+"No" "Yes, a tram line, please!" "Yes, a bus line, please!"
+2
 
 @#$#@#$#@
 ## WHAT IS IT?
