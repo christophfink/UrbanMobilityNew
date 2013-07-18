@@ -4,35 +4,44 @@ to calibrate
   print-in-file filename "congtres=[];ratio=[];meancong=[];"
   
   set begin-congestion-treshold 40
+  set tolerance-for-congestion 10
   
-  let values [[0.2 2][0.5 1.5][1 1][1.5 0.5][2 0.2]]
+  let values [[5 90][15 80][30 65][50 50][80 15]]
   let inter values
   
   let i 1
-    
     repeat 10 [
-     
-     repeat 5 [
-       
-       set workers first first inter set students first but-first first inter
-       set inter but-first inter
-       
-       setup-vars-for-go
-       
-       go-for-one-day
-       
-       let j 1
-       print-in-file filename word word word word "congtres(" i ")=" begin-congestion-treshold ";"
-       print-in-file filename word word word word "ratio(" i ")=" (workers / students) ";"
-       foreach out [print-in-file filename word word word word word word "meancong(" i "," j ")=" ? ";" set j j + 1]
-       
-       set i i + 1
-       
-
+    
+     repeat 10 [
+      
+      repeat 5 [
+        
+        set workers first first inter set students first but-first first inter
+        set inter but-first inter
+        
+        setup-vars-for-go
+        
+        go-for-one-day
+        
+        let j 1
+        print-in-file filename word word word word "congtres(" i ")=" begin-congestion-treshold ";"
+        print-in-file filename word word word word "ratio(" i ")=" (workers / students) ";"
+        print-in-file filename word word word word "tolerance(" i ")=" tolerance-for-congestion ";"
+        foreach out-calibration [print-in-file filename word word word word word word "meancong(" i "," j ")=" ? ";" set j j + 1]
+        
+        set i i + 1
+        
+ 
+      ]
+      
+      set begin-congestion-treshold begin-congestion-treshold + 10
+      set inter values 
      ]
      
-     set begin-congestion-treshold begin-congestion-treshold + 10
-     set inter values 
+      set tolerance-for-congestion tolerance-for-congestion + 5
+      set begin-congestion-treshold 40
+      set inter values 
+     
     ]
   
   

@@ -13,7 +13,7 @@ to setup-model
   import-patches
   if chge-agents? [setup-agents-structure]
   setup-agents-vars
-  ;setup-cars
+  setup-cars
   
   correct-bugs
   

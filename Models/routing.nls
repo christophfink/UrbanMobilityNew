@@ -235,7 +235,7 @@ end
 ;;road procedure to get current possible speed
 ;;implements an affine by parts law
 to-report possible-speed
-  let c 100 * congestion-on-edge
+  let c congestion-on-edge
   if c < begin-congestion-treshold [report avg-speed]
   ifelse c < max-congestion-treshold [report (avg-speed - min-congestion-speed) * (max-congestion-treshold - c) + avg-speed]
   [report min-congestion-speed]

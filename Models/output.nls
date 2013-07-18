@@ -126,13 +126,30 @@ to clustering-edges
 end
 
 
+
+to illuminate-clusters
+  let colors [yellow green sky violet pink] let i 0
+  foreach colors [
+    ask roads with [cluster-vertex = i] [set color ?]
+    set i i + 1
+  ]
+end
+
+
+
 to congestion-per-cluster-i [i] 
   ;;For the roads in the cluster i
   ask roads with [cluster-vertex = i ] [
     ;;Add the congestion rate given by congestion-on-edge to the number of kilometers of congestion already in the array
     array:set congestion-rate-per-cluster i array:item congestion-rate-per-cluster i + congestion-on-edge
   ]
+  array:set congestion-rate-per-cluster i (array:item congestion-rate-per-cluster i) / count roads with [cluster-vertex = i ]
 end
+
+to-report report-congestion-per-cluster [i]
+  report array:item congestion-rate-per-cluster i
+end
+
 ;to congestion-per-cluster-i [i] 
 ;  ;;For the roads in the cluster i
 ;  ask roads with [[cluster-vertex] of end2  = i or [cluster-vertex] of end1 = i] [

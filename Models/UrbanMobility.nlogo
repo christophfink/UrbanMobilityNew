@@ -10,10 +10,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; TODOs
-;;; - bug in reroute process
-;;; - time trackers in rerouting process
-;;; - correct reporters
-;;; - plots ?
+;;; - bug in reroute process FIXED
+;;; - time trackers in rerouting process OK
+;;; - correct reporters OK
+;;; - plots ? OK
+;;;
+;;; - pretiffy that dirty code
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -34,6 +36,7 @@ __includes[
   "codePatches.nls"
   "tests.nls"
   "exploration.nls"
+  "calibration.nls"
   
   ;;utilities
   "utils/NetworkUtilities.nls"
@@ -273,7 +276,6 @@ patches-own[
   leisure?
 ]
 
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -310,9 +312,9 @@ SLIDER
 workers
 workers
 0
-10
-2
-0.1
+100
+74
+1
 1
 NIL
 HORIZONTAL
@@ -326,8 +328,8 @@ students
 students
 0
 100
-0.2
-0.1
+19
+1
 1
 NIL
 HORIZONTAL
@@ -341,8 +343,8 @@ inactives
 inactives
 0
 100
-0.5
-0.1
+7
+1
 1
 NIL
 HORIZONTAL
@@ -356,7 +358,7 @@ car-percentage
 car-percentage
 0
 100
-12
+14
 1
 1
 NIL
@@ -394,21 +396,6 @@ tick-time-interval
 NIL
 HORIZONTAL
 
-SLIDER
-855
-49
-1044
-82
-congestion-threshold
-congestion-threshold
-0
-1
-0.8
-0.1
-1
-NIL
-HORIZONTAL
-
 MONITOR
 1307
 12
@@ -428,10 +415,10 @@ OUTPUT
 8
 
 MONITOR
-10
-133
-60
-178
+1240
+11
+1290
+56
 paths
 paths-setup
 17
@@ -439,10 +426,10 @@ paths-setup
 11
 
 SWITCH
-13
-515
-103
-548
+9
+546
+99
+579
 debug?
 debug?
 1
@@ -450,10 +437,10 @@ debug?
 -1000
 
 SWITCH
-13
-551
-103
-584
+10
+586
+100
+619
 movie?
 movie?
 1
@@ -478,10 +465,10 @@ NIL
 1
 
 SWITCH
-105
-516
-201
-549
+103
+547
+199
+580
 chge-agents?
 chge-agents?
 0
@@ -489,10 +476,10 @@ chge-agents?
 -1000
 
 MONITOR
-1046
-110
-1099
-155
+1067
+96
+1120
+141
 reroutes
 total-reroutings
 17
@@ -500,10 +487,10 @@ total-reroutings
 11
 
 MONITOR
-851
-110
-908
-155
+149
+10
+206
+55
 time
 tick-time-interval * ticks
 17
@@ -511,25 +498,25 @@ tick-time-interval * ticks
 11
 
 SLIDER
-1037
-11
-1260
-44
+1028
+10
+1218
+43
 begin-congestion-treshold
 begin-congestion-treshold
 0
 100
-37
+50
 1
 1
 NIL
 HORIZONTAL
 
 MONITOR
-66
-135
-128
-180
+1238
+61
+1300
+106
 vertices
 count vertices
 17
@@ -537,25 +524,25 @@ count vertices
 11
 
 SLIDER
-1047
-51
-1259
-84
+1029
+46
+1219
+79
 tolerance-for-congestion
 tolerance-for-congestion
 0
 100
-48
+32
 1
 1
 NIL
 HORIZONTAL
 
 MONITOR
-974
-110
-1041
-155
+1126
+95
+1193
+140
 total travels
 total-travel-number
 17
@@ -585,15 +572,106 @@ count individuals with [activity = \"worker\"]
 11
 
 MONITOR
-130
-136
-204
-181
+1229
+114
+1303
+159
 nb-clusters
 nb-clusters
 17
 1
 11
+
+PLOT
+850
+177
+1337
+401
+congestion
+NIL
+NIL
+0.0
+240.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"congestion rate" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
+"congestioncluster1" 1.0 0 -1184463 true "" "plot 100 * (report-congestion-per-cluster 0)"
+"congestion cluster 2" 1.0 0 -8732573 true "" "plot 100 * report-congestion-per-cluster 1"
+"congestion cluster 3" 1.0 0 -13791810 true "" "plot 100 * report-congestion-per-cluster 2"
+"congestion cluster 4" 1.0 0 -8630108 true "" "plot 100 * report-congestion-per-cluster 3"
+"congestion cluster 5" 1.0 0 -2064490 true "" "plot 100 * report-congestion-per-cluster 4"
+
+PLOT
+852
+411
+1350
+650
+transportation part
+NIL
+NIL
+0.0
+240.0
+0.0
+100.0
+false
+true
+"" ""
+PENS
+"on foot" 1.0 0 -13791810 true "" "plot percentage-by-foot"
+"by public transport" 1.0 0 -7500403 true "" "plot percentage-by-transportation"
+"by car" 1.0 0 -2674135 true "" "plot percentage-by-car"
+"total" 1.0 0 -955883 true "" "plot percentage-by-car + percentage-by-transportation + percentage-by-foot"
+
+BUTTON
+12
+181
+100
+214
+show clusters
+illuminate-clusters
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+853
+46
+1025
+79
+congestion-threshold
+congestion-threshold
+0
+100
+71
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+10
+135
+182
+168
+agents-number
+agents-number
+0
+10000
+1000
+10
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
