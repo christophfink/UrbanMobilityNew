@@ -15,7 +15,7 @@
 ;;; - correct reporters
 ;;; - plots ?
 ;;;
-;;;;;;;;;;;;;;;;;;;;;;;   
+;;;;;;;;;;;;;;;;;;;;;;;
 
 
 extensions[nw gis array]
@@ -33,10 +33,14 @@ __includes[
   "output.nls"
   "codePatches.nls"
   "tests.nls"
+  "exploration.nls"
   
   ;;utilities
   "utils/NetworkUtilities.nls"
   "utils/ListUtilities.nls"
+  "utils/FileUtilities.nls"
+  "utils/StringUtilities.nls"
+  
 ]
 
 globals[
@@ -48,8 +52,6 @@ globals[
   ;;network import functions
   pt-network
   road-network
-  additional-bus-line
-  additional-tram-line
   
   
   
@@ -61,7 +63,7 @@ globals[
   epsilon-prefered-paths
   
   total-reroutings
-  
+  total-travel-number
   
   ;;vars for output calculation
   km-congested ;; to init at 0
@@ -69,9 +71,6 @@ globals[
   travelling-by-car ;; number of people travelling by car
   travelling-by-foot ;; number of people travelling by foot
   travelling-by-transportation  ;; number of people travelling by public transportation
-  
-  nb-clusters ;; Number of clusters we need
-  km-congested-per-cluster ;; Array of length nb-clusters which contains the nb of congested kilometers per cluster
   
   ;;reporters
   max-mean-congestion
@@ -82,14 +81,22 @@ globals[
   
   
   
-  
   ;;utility variables
   remaining-vertices
   cluster-treshold
   remaining-links
   paths-setup
+  out-calibration
   
   scale-factor
+  
+  
+  
+  nb-clusters ;; Number of clusters we need
+  km-congested-per-cluster ;; Array of length nb-clusters which contains the nb of congested kilometers per cluster -- NOW USELESS !!!
+  congestion-rate-per-cluster  ;; Array of length nb-clusters which contains the rate congestion aggregated through time per cluster
+  
+  
   
 ]
 
@@ -166,6 +173,7 @@ individuals-own[
  remaining-time-in-tick
  
  individual-tolerance-for-congestion
+
  
  ;;list of the path that has to be executed
  current-path
@@ -182,8 +190,8 @@ individuals-own[
  mean-travel-time
  
  
- ;;output
- cluster-vertex
+ 
+ 
  
 ]
 
@@ -203,6 +211,14 @@ roads-own[
  
  ;;list of pointers to people currently travelling in edge
  people-in-edge
+ 
+ 
+ 
+ ;;output
+ cluster-vertex
+ betweeness-roads
+ congestion-roads
+ 
  
 ]
 
@@ -233,6 +249,9 @@ transits-own[
 
 vertices-own[
   is-station?
+  
+    betweeness-vertices
+
 ]
 
 
@@ -292,7 +311,7 @@ workers
 workers
 0
 10
-0.5
+2
 0.1
 1
 NIL
@@ -307,7 +326,7 @@ students
 students
 0
 100
-0.3
+0.2
 0.1
 1
 NIL
@@ -322,7 +341,7 @@ inactives
 inactives
 0
 100
-0.2
+0.5
 0.1
 1
 NIL
@@ -331,13 +350,13 @@ HORIZONTAL
 SLIDER
 110
 98
-203
+202
 131
 car-percentage
 car-percentage
 0
 100
-45
+12
 1
 1
 NIL
@@ -470,10 +489,10 @@ chge-agents?
 -1000
 
 MONITOR
-1307
-60
-1360
-105
+1046
+110
+1099
+155
 reroutes
 total-reroutings
 17
@@ -481,69 +500,15 @@ total-reroutings
 11
 
 MONITOR
-1245
-50
-1302
-95
+851
+110
+908
+155
 time
 tick-time-interval * ticks
 17
 1
 11
-
-CHOOSER
-850
-601
-1069
-646
-add-additional-transit-service?
-add-additional-transit-service?
-"No" "Yes, a tram line, please!" "Yes, a bus line, please!"
-0
-
-PLOT
-853
-119
-1340
-343
-congestion
-NIL
-NIL
-0.0
-240.0
-0.0
-10.0
-true
-true
-"" ""
-PENS
-"congestion rate" 1.0 0 -16777216 true "" "plot 100 * avg-congestion-on-edge"
-"modal share of publ. tr." 1.0 0 -3844592 true "" "plot percentage-by-transportation"
-"congestion cluster 1" 1.0 0 -1184463 true "" "plot report-congestion-per-cluster 1"
-"congestion cluster 2" 1.0 0 -8732573 true "" "plot report-congestion-per-cluster 2"
-"congestion cluster 3" 1.0 0 -11033397 true "" "plot report-congestion-per-cluster 3"
-"congestion cluster 4" 1.0 0 -7500403 true "" "plot report-congestion-per-cluster 4"
-"congestion cluster 5" 1.0 0 -4757638 true "" "plot report-congestion-per-cluster 5"
-
-PLOT
-852
-352
-1350
-591
-transportation part
-NIL
-NIL
-0.0
-240.0
-0.0
-100.0
-false
-true
-"" ""
-PENS
-"on foot" 1.0 0 -13791810 true "" "plot percentage-by-car + percentage-by-transportation + percentage-by-foot"
-"by public transport" 1.0 0 -7500403 true "" "plot percentage-by-car + percentage-by-transportation"
-"by car" 1.0 0 -2674135 true "" "plot percentage-by-car"
 
 SLIDER
 1037
@@ -554,11 +519,81 @@ begin-congestion-treshold
 begin-congestion-treshold
 0
 100
-0.7
+37
 1
 1
 NIL
 HORIZONTAL
+
+MONITOR
+66
+135
+128
+180
+vertices
+count vertices
+17
+1
+11
+
+SLIDER
+1047
+51
+1259
+84
+tolerance-for-congestion
+tolerance-for-congestion
+0
+100
+48
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+974
+110
+1041
+155
+total travels
+total-travel-number
+17
+1
+11
+
+MONITOR
+1309
+61
+1376
+106
+students
+count individuals with [activity = \"student\"]
+17
+1
+11
+
+MONITOR
+1310
+113
+1373
+158
+workers
+count individuals with [activity = \"worker\"]
+17
+1
+11
+
+MONITOR
+130
+136
+204
+181
+nb-clusters
+nb-clusters
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -906,7 +941,7 @@ Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 
 @#$#@#$#@
-NetLogo 5.0.4
+NetLogo 5.0.2
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
