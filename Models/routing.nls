@@ -173,7 +173,7 @@ to reroute
     
     
     ;;check reroute condition
-    if next-travel-type = "CAR" and times-rerouted < 3 and [congestion-on-edge] of hypothetical-next-edge >= individual-tolerance-for-congestion [
+    if next-travel-type = "CAR" and times-rerouted < 3 and [congestion-on-edge] of hypothetical-next-edge >= individual-tolerance-for-congestion * cmax / 100 [
       
       ;output-print "rerouted condition verified"
       
@@ -236,8 +236,8 @@ end
 ;;implements an affine by parts law
 to-report possible-speed
   let c congestion-on-edge
-  if c < begin-congestion-treshold [report avg-speed]
-  ifelse c < max-congestion-treshold [report (avg-speed - min-congestion-speed) * (max-congestion-treshold - c) + avg-speed]
+  if c < begin-congestion-treshold * cmax / 100 [report avg-speed]
+  ifelse c < max-congestion-treshold * cmax / 100 [report (avg-speed - min-congestion-speed) * (max-congestion-treshold - c) + avg-speed]
   [report min-congestion-speed]
 end
 

@@ -26,19 +26,19 @@ to import-patches
   import-pcolors "landuses/workers.png"
   let c count patches with [pcolor != 0]
   let weight-sum 0 ask patches with [pcolor != 0] [set weight-sum weight-sum + (1 / pcolor) ]
-  ifelse count patches with [pcolor != 0 and round (total-workers * (1 / pcolor / weight-sum)) = 0] > c - total-workers [ask n-of total-workers patches with [pcolor != 0][set nb-workers 1 set pcolor 0]]
+  ifelse count patches with [pcolor != 0 and round (total-workers * (1 / pcolor / weight-sum)) = 0] > c - total-workers [ask n-of min list c total-workers patches with [pcolor != 0][set nb-workers 1 set pcolor 0]]
   [ask patches with [pcolor != 0] [set nb-workers round (total-workers * (1 / pcolor / weight-sum)) set pcolor 0]]
   
   import-pcolors "landuses/students.png"
   set c count patches with [pcolor != 0]
   set weight-sum 0 ask patches with [pcolor != 0] [set weight-sum weight-sum + (1 / pcolor) ]
-  ifelse count patches with [pcolor != 0 and round (total-students * (1 / pcolor / weight-sum)) = 0] > c - total-students [ask n-of total-students patches with [pcolor != 0][set nb-students 1 set pcolor 0]]
+  ifelse count patches with [pcolor != 0 and round (total-students * (1 / pcolor / weight-sum)) = 0] > c - total-students [ask n-of min list c total-students patches with [pcolor != 0][set nb-students 1 set pcolor 0]]
   [ask patches with [pcolor != 0] [set nb-students round (total-students * (1 / pcolor / weight-sum)) set pcolor 0]]
   
   import-pcolors "landuses/inactives.png"
   set c count patches with [pcolor != 0]
   set weight-sum 0 ask patches with [pcolor != 0] [set weight-sum weight-sum + (1 / pcolor) ]
-  ifelse count patches with [pcolor != 0 and round (total-inactives * (1 / pcolor / weight-sum)) = 0] > c - total-inactives [ask n-of total-inactives patches with [pcolor != 0][set nb-inactives 1 set pcolor 0]]
+  ifelse count patches with [pcolor != 0 and round (total-inactives * (1 / pcolor / weight-sum)) = 0] > c - total-inactives [ask n-of min list c total-inactives patches with [pcolor != 0][set nb-inactives 1 set pcolor 0]]
   [ask patches with [pcolor != 0] [set nb-inactives round (total-inactives * (1 / pcolor / weight-sum)) set pcolor 0]]
   
   import-pcolors "landuses/cars.png" ; lighter = less

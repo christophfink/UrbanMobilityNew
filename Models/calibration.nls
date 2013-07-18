@@ -1,10 +1,12 @@
 to calibrate
   
   let filename word word "../Results/calibration/cal_" timer ".sci"
-  print-in-file filename "congtres=[];ratio=[];meancong=[];"
+  print-in-file filename "congtres=[];ratio=[];meancong=[];tolerance=[];"
   
-  set begin-congestion-treshold 40
-  set tolerance-for-congestion 10
+  set agents-number 800
+  
+  set begin-congestion-treshold 60
+  set tolerance-for-congestion 40
   
   let values [[5 90][15 80][30 65][50 50][80 15]]
   let inter values
@@ -12,14 +14,14 @@ to calibrate
   let i 1
     repeat 10 [
     
-     repeat 10 [
+     repeat 5 [
       
       repeat 5 [
         
         set workers first first inter set students first but-first first inter
         set inter but-first inter
         
-        setup-vars-for-go
+        setup-model
         
         go-for-one-day
         
@@ -34,7 +36,7 @@ to calibrate
  
       ]
       
-      set begin-congestion-treshold begin-congestion-treshold + 10
+      set begin-congestion-treshold begin-congestion-treshold + 5
       set inter values 
      ]
      

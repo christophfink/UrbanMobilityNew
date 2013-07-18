@@ -63,6 +63,7 @@ globals[
   ;begin-congestion-treshold
   max-congestion-treshold
   min-congestion-speed
+  cmax
   
   epsilon-prefered-paths
   
@@ -313,7 +314,7 @@ workers
 workers
 0
 100
-74
+30
 1
 1
 NIL
@@ -328,7 +329,7 @@ students
 students
 0
 100
-19
+65
 1
 1
 NIL
@@ -358,7 +359,7 @@ car-percentage
 car-percentage
 0
 100
-14
+78
 1
 1
 NIL
@@ -506,7 +507,7 @@ begin-congestion-treshold
 begin-congestion-treshold
 0
 100
-50
+60
 1
 1
 NIL
@@ -532,7 +533,7 @@ tolerance-for-congestion
 tolerance-for-congestion
 0
 100
-32
+40
 1
 1
 NIL
@@ -667,7 +668,7 @@ agents-number
 agents-number
 0
 10000
-1020
+500
 10
 1
 NIL
@@ -681,7 +682,7 @@ CHOOSER
 add-additional-transit-service?
 add-additional-transit-service?
 "No" "Yes, a tram line, please!" "Yes, a bus line, please!"
-2
+0
 
 @#$#@#$#@
 ## WHAT IS IT?

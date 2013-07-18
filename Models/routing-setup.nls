@@ -11,7 +11,7 @@ to setup-routing
   ;set begin-congestion-treshold 0.7
   set max-congestion-treshold 100
   set min-congestion-speed 5
-  
+  set cmax 4
   
   
   ;;ask individuals here to set their own routing variables, better for code separation

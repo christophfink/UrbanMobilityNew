@@ -262,9 +262,9 @@ to betweeness-centrality
   ]
   ask roads [
     set betweeness-roads [betweeness-vertices] of end1 + [betweeness-vertices] of end2
-    show betweeness-roads
+    ;show betweeness-roads
   ]
-  show timer - time
+  output-print word "Betweness centralities " (timer - time)
 end
 
 to betweeness-and-centrality
