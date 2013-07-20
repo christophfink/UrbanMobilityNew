@@ -314,7 +314,7 @@ workers
 workers
 0
 100
-30
+81
 1
 1
 NIL
@@ -329,7 +329,7 @@ students
 students
 0
 100
-65
+19
 1
 1
 NIL
@@ -344,7 +344,7 @@ inactives
 inactives
 0
 100
-7
+0
 1
 1
 NIL
@@ -359,7 +359,7 @@ car-percentage
 car-percentage
 0
 100
-78
+83
 1
 1
 NIL
@@ -391,7 +391,7 @@ tick-time-interval
 tick-time-interval
 0
 1
-0.1
+0.05
 0.01
 1
 NIL
@@ -507,7 +507,7 @@ begin-congestion-treshold
 begin-congestion-treshold
 0
 100
-60
+40
 1
 1
 NIL
@@ -533,7 +533,7 @@ tolerance-for-congestion
 tolerance-for-congestion
 0
 100
-40
+11
 1
 1
 NIL
@@ -594,7 +594,8 @@ NIL
 0.0
 240.0
 0.0
-true
+7.0
+false
 true
 "" ""
 PENS
@@ -667,7 +668,7 @@ agents-number
 agents-number
 0
 10000
-500
+640
 10
 1
 NIL
