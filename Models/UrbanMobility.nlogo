@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Core file for the model, what includes interface, infos, but with less code as possible.
@@ -681,6 +680,7 @@ CHOOSER
 100
 1059
 145
+add-additional-transit-service?
 add-additional-transit-service?
 "No" "Yes, a tram line, please!" "Yes, a bus line, please!"
 0
