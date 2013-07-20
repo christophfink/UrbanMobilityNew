@@ -2,7 +2,8 @@
 ;;REPORTERS ABOUT CONGESTION ON EDGES------------------------------------------------------------------
 ;;Get the congestion of one road at one tick
 to-report congestion-on-edge
-  report (length people-in-edge) / capacity
+  let c 0 foreach people-in-edge [if [next-travel-type] of ? = "CAR" [set c c + 1] ]
+  report c / capacity
 end
 
 

@@ -78,7 +78,7 @@ end
 
 
 to draw-links
-  ask roads [set color scale-color orange (- congestion-on-edge) (- 25) 4]
+  ask roads [set color scale-color orange (- congestion-on-edge) (- 10) 4]
 end
 
 
