@@ -186,14 +186,10 @@ to reroute
       let v1 nearest-vertice-of-path first (first prefered-paths)
       let v2 nearest-vertice-of-path first (but-first (first prefered-paths))
       let d1 0 let d2 0
-<<<<<<< HEAD
-      ask v1 [set d1 distance n] ask v2 [set v2 distance n]
-      ;DEBUG output-print word v1 v2
-=======
+
       ask v1 [set d1 distance n] ask v2 [set d2 distance n]
       ;output-print v1
       ;output-print v2
->>>>>>> lastjuste
 
       if is-agent? v1 or is-agent? v2 [
 
@@ -204,11 +200,9 @@ to reroute
           
           ;;FIX SND SHORTEST PATH
           
-<<<<<<< HEAD
-          ask n [set begin nw:weighted-path-to v1 "length-of-edge"] ask v1 [set fin nw:weighted-path-to destination "length-of-edge"]
-=======
+
           ask n [set begin nw:weighted-path-to v1 "length-of-edge" set fin end-of [current-path] of myself v1 ]
->>>>>>> lastjuste
+
         ][
           ask n [set begin nw:weighted-path-to v2 "length-of-edge" set fin end-of [current-path] of myself v2 ]
         ]

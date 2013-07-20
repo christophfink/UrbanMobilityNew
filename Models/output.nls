@@ -154,9 +154,6 @@ end
 ;  ]
 ;end
 
-to-report report-congestion-per-cluster [i]
-  report array:item congestion-rate-per-cluster i
-end
 
 ;to congestion-per-cluster-i [i] 
 ;  ;;For the roads in the cluster i
@@ -270,15 +267,10 @@ to betweeness-centrality
   ]
   ask roads [
     set betweeness-roads [betweeness-vertices] of end1 + [betweeness-vertices] of end2
-<<<<<<< HEAD
-    show betweeness-roads
-  ]
-  show timer - time
-=======
     ;show betweeness-roads
   ]
   output-print word "Betweness centralities " (timer - time)
->>>>>>> lastjuste
+
 end
 
 to betweeness-and-centrality
@@ -417,6 +409,7 @@ end
 
 to-report report-congestion-per-cluster [i]
   if-else (ticks > 1) [ ;; in the first tick the variable is not set
-    report array:item km-congested-per-cluster i
+    report array:item congestion-rate-per-cluster i
   ] [ report 0 ]
 end
+

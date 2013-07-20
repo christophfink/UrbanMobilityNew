@@ -29,10 +29,6 @@ end
 to go-for-one-day
   reset-ticks
   clear-all-plots 
-<<<<<<< HEAD
-  ask individuals [set hidden? true]
-=======
->>>>>>> lastjuste
   
   ;color-networks
   
@@ -45,15 +41,12 @@ to go-for-one-day
     ;;update reporters?
     
     draw-links
-    
-<<<<<<< HEAD
-=======
+
     output-each-tick-agregation
     
     update-vars
     
     if (ticks * tick-time-interval) mod 1 = 0 [set out-calibration lput avg-congestion-on-edge out-calibration]
->>>>>>> lastjuste
     
     tick
   ]
@@ -85,9 +78,6 @@ end
 
 
 to draw-links
-<<<<<<< HEAD
-  ask roads [set color scale-color orange (- congestion-on-edge) (- 30) 5]
-=======
   ask roads [set color scale-color orange (- congestion-on-edge) (- 10) 4]
 end
 
@@ -98,7 +88,6 @@ to update-vars
   set max-mean-congestion max list max-mean-congestion (100 * avg-congestion-on-edge)
   set mean-transportation-part mean-transportation-part + percentage-by-transportation
   set mean-mean-congestion mean-mean-congestion + (100 * avg-congestion-on-edge)
->>>>>>> lastjuste
 end
 
 

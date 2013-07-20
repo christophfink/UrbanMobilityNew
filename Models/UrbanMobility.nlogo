@@ -276,7 +276,6 @@ patches-own[
   offices?
   leisure?
 ]
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -497,7 +496,6 @@ tick-time-interval * ticks
 17
 1
 11
-
 
 SLIDER
 1028
@@ -1031,7 +1029,7 @@ Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 
 @#$#@#$#@
-NetLogo 5.0.4
+NetLogo 5.0.2
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
