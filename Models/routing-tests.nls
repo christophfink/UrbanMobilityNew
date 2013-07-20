@@ -35,7 +35,8 @@ to setup-for-test
          setxy min list first loc max-pxcor min list first but-first loc max-pycor
          new-vertex 
          ask abstract [set vertices-list lput myself vertices-list]
-         ifelse current-vertex = nobody [set current-vertex self][ask current-vertex [create-road-with myself [new-path]] set current-vertex self]
+         ifelse current-vertex = nobody [set current-vertex self][ask current-vertex [create-road-with myself [;new-path
+               ]] set current-vertex self]
          ]
          
        ]

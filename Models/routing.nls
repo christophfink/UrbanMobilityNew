@@ -24,6 +24,9 @@ to move-agent
   ][
     ;;FATAL BUG : IF TRAVEL_TIME > interval to next-start, agent will miss next travel.
     if ticks = next-travel-start [
+      
+      set total-travel-number total-travel-number + 1
+      
       ;;need first check if projected path is empty
       ;;should not be necessary after setup procedures killing individuals with empty pathes
       ;;still, needed.
@@ -170,18 +173,27 @@ to reroute
     
     
     ;;check reroute condition
-    if next-travel-type = "CAR" and times-rerouted < 3 and [congestion-on-edge] of hypothetical-next-edge >= individual-tolerance-for-congestion [
+    if next-travel-type = "CAR" and times-rerouted < 3 and [congestion-on-edge] of hypothetical-next-edge >= individual-tolerance-for-congestion * cmax / 100 [
       
+      ;output-print "rerouted condition verified"
       
       ;;reroute procedure : find the closest vertex on the two others prefered routes (stored in alternative routes)
       set times-rerouted times-rerouted + 1
       snapshot
 
-      let v1 one-of (([both-ends] of (first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] (first first prefered-paths))) with-min [distance myself])
-      let v2 one-of (([both-ends] of (first sort-by [[distance n] of [end2] of ?1 < [distance n] of [end2] of ?2] (first first but-first prefered-paths))) with-min [distance myself])
+
+      ;;DISGUSTING
+      let v1 nearest-vertice-of-path first (first prefered-paths)
+      let v2 nearest-vertice-of-path first (but-first (first prefered-paths))
       let d1 0 let d2 0
+<<<<<<< HEAD
       ask v1 [set d1 distance n] ask v2 [set v2 distance n]
       ;DEBUG output-print word v1 v2
+=======
+      ask v1 [set d1 distance n] ask v2 [set d2 distance n]
+      ;output-print v1
+      ;output-print v2
+>>>>>>> lastjuste
 
       if is-agent? v1 or is-agent? v2 [
 
@@ -192,15 +204,22 @@ to reroute
           
           ;;FIX SND SHORTEST PATH
           
+<<<<<<< HEAD
           ask n [set begin nw:weighted-path-to v1 "length-of-edge"] ask v1 [set fin nw:weighted-path-to destination "length-of-edge"]
+=======
+          ask n [set begin nw:weighted-path-to v1 "length-of-edge" set fin end-of [current-path] of myself v1 ]
+>>>>>>> lastjuste
         ][
-          ask n [set begin nw:weighted-path-to v2 "length-of-edge"] ask v2 [set fin nw:weighted-path-to destination "length-of-edge"]
+          ask n [set begin nw:weighted-path-to v2 "length-of-edge" set fin end-of [current-path] of myself v2 ]
         ]
         if is-agent? v1 and is-agent? v2[
-          set current-path concat begin fin
-          set hypothetical-next-edge first current-path
-          
-          set total-reroutings total-reroutings + 1
+          let new-path concat begin fin
+          if length new-path > 1 [
+            set current-path  new-path
+            set hypothetical-next-edge first current-path
+            
+            set total-reroutings total-reroutings + 1
+          ]
         ]
       ]
     ]
@@ -225,8 +244,35 @@ end
 ;;road procedure to get current possible speed
 ;;implements an affine by parts law
 to-report possible-speed
-  let c 0.5;congestion-on-edge
-  if c < begin-congestion-treshold [report avg-speed]
-  ifelse c < max-congestion-treshold [report (avg-speed - min-congestion-speed) * (max-congestion-treshold - c) + avg-speed]
+  let c congestion-on-edge
+  if c < begin-congestion-treshold * cmax / 100 [report avg-speed]
+  ifelse c < max-congestion-treshold * cmax / 100 [report (avg-speed - min-congestion-speed) * (max-congestion-treshold - c) + avg-speed]
   [report min-congestion-speed]
 end
+
+
+to-report end-of [path node]
+  let res [] let found? false
+  foreach path [
+    set found? (found? or [end1] of ? = node or [end1] of ? = node) 
+    if found? [set res lput ? res]
+  ]
+  report res
+end
+
+;;agent procedure to give the nearest vertice of the path
+;;in O(n)
+to-report nearest-vertice-of-path [path]
+  let n self let res nobody
+  let mi 100000
+  foreach path [
+    ask ?[
+      ask end2 [let m distance n set mi min list mi m if mi = m [set res self] ]
+      ask end1 [let m distance n set mi min list mi m if mi = m [set res self] ]
+    ]
+  ]
+  report res
+end
+
+
+

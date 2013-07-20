@@ -8,10 +8,10 @@ to setup-routing
   
   
   ;;here set specific variables, prefered paths etc
-  set begin-congestion-treshold 0.7
-  set max-congestion-treshold 1
+  ;set begin-congestion-treshold 0.7
+  set max-congestion-treshold 100
   set min-congestion-speed 5
-  
+  set cmax 4
   
   
   ;;ask individuals here to set their own routing variables, better for code separation
@@ -23,7 +23,7 @@ to setup-routing
     if chge-agents? [setup-prefered-paths]
     
     set times-rerouted 0
-    set individual-tolerance-for-congestion 1
+    set individual-tolerance-for-congestion tolerance-for-congestion
     set is-travelling? false
     set paths-setup paths-setup - 1
     

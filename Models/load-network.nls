@@ -38,13 +38,13 @@ end
 to load-public-transport-network
   set pt-network load-from-shapefile "../Data/simple_network/pt.shp"
   zoom-to-dataset pt-network
-  create-edges-and-vertices pt-network blue 0.2 blue 0.2 "circle" true
+  create-edges-and-vertices pt-network blue 0.3 blue 0.3 "circle" true
 end
 
 to load-road-network
   set road-network load-from-shapefile "../Data/simple_network/rd.shp"
   ;zoom-to-dataset road-network
-  create-edges-and-vertices road-network red 0.1 red 0.1 "circle" false
+  create-edges-and-vertices road-network red 0.2 red 0.2 "circle" false
 end
 
 to-report load-from-shapefile [filename]

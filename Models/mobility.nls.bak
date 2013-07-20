@@ -136,6 +136,13 @@ to setup-agents-structure
   
  ] ; end ask patches
   
+  ;reinitialisation of car-taken
+  ask individuals [
+    set car-taken? false
+    set hidden? true
+    set is-travelling? false  ;; initially they are not ;-)
+    
+  ]
     
     
     
@@ -148,8 +155,7 @@ to setup-agents-vars
   ask individuals [
     set car-taken? false
     set hidden? true
-    set is-travelling? false  ;; initially they are not ;-)
-    set car-owner? false
+    
   ]
 end
 
@@ -182,16 +188,14 @@ to setup-cars
             ask one-of individuals-here with [car-owner? = false and activity = "inactive"] [set car-owner? true]
             set nb-current nb-current + 1
           ]
-        ]
+        ]        
         [
           ;students
-          ifelse any? individuals-here with [car-owner? = false and activity = "student"] [
+          if any? individuals-here with [car-owner? = false and activity = "student"] [
             ask one-of individuals-here with [car-owner? = false and activity = "student"] [set car-owner? true]
             set nb-current nb-current + 1
-          ][
-          ;;need to increment anyway just in case
-            set nb-current nb-current + 1
           ]
+          
         ]
       ] 
       
