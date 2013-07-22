@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Core file for the model, what includes interface, infos, but with less code as possible.
@@ -17,7 +16,7 @@
 ;;;
 ;;; - pretiffy that dirty code
 ;;;
-;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;   
 
 
 extensions[nw gis array]
@@ -353,7 +352,7 @@ HORIZONTAL
 SLIDER
 110
 98
-202
+203
 131
 car-percentage
 car-percentage

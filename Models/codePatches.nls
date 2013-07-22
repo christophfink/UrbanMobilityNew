@@ -3,10 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to correct-bugs
-  ask individuals with [time-schedule = 0 or space-schedule = 0 or length time-schedule = 3][die]
-  
-  ;;CRAZY == AUTODESTRUCTIVE CODE
-  let students-set (individuals with [activity = "student"])
-  ask n-of (round ((count students-set) / 2)) students-set [die]
-  
+  let c 0
+  ask individuals with [time-schedule = 0 or space-schedule = 0 or length time-schedule = 3][set c c + 1 die]
+  output-print word word "Killed " c "indivuduals because of unformated schedules."
 end
