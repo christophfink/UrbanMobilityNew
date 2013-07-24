@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="UrbanMobility_decision-tree.svg"
-   inkscape:export-filename="/home/christoph/Downloads/decision-tree_now-hopefully-complete.png"
+   inkscape:export-filename="/home/christoph/Quelltexte/UrbanMobilityNew/Docs/decision-tree_now-hopefully-complete.png"
    inkscape:export-xdpi="246.75981"
    inkscape:export-ydpi="246.75981">
   <defs
@@ -141,7 +141,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.4786686"
      inkscape:cx="453.37325"
-     inkscape:cy="234.96138"
+     inkscape:cy="289.06411"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -170,7 +170,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
